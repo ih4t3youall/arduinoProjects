@@ -1,0 +1,8 @@
+La onda es asi, primer motor va en los pines
+12,11,10,9
+segundo motor va en los Pines
+7,6,5,4
+los axis del stick se controlan como en el programa y van conectados a
+sw al 2
+el y al analog 0
+y el x al analog 1
