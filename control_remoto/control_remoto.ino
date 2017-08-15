@@ -18,7 +18,8 @@ void setup()
 void loop() 
    {   
       if (digitalRead(7) )     // Si hay dato valido
-         {  Serial.print("Valid trans. \t");
+         {
+	    Serial.print("Valid trans. \t");
             if (digitalRead(8)) 
                 Serial.print( "Boton B, pulsado");
             if (digitalRead(9)) 
@@ -26,13 +27,11 @@ void loop()
             if (digitalRead(10)) 
               { 
                    Serial.print( "Boton A, pulsado");
-                   digitalWrite (12, ! digitalRead(12)) ;
                    delay (500) ;
                }
             if (digitalRead(11))
                { 
                    Serial.print( "Boton C, pulsado");
-                   digitalWrite (13, ! digitalRead(13)) ;
                    delay (500) ;
                }
             Serial.println("\t");

@@ -64,18 +64,17 @@ void setup() {
   // Para las versiones anteriores a 1.0.1 Arduino 
   // pinMode (buttonPin, INPUT); 
   // digitalWrite (buttonPin, HIGH);
-      pinMode(IN1, OUTPUT); 
-      pinMode(IN2, OUTPUT); 
-      pinMode(IN3, OUTPUT); 
-      pinMode(IN4, OUTPUT); 
+  pinMode(IN1, OUTPUT); 
+  pinMode(IN2, OUTPUT); 
+  pinMode(IN3, OUTPUT); 
+  pinMode(IN4, OUTPUT); 
 
-      //motor 2
-     pinMode(motorPin1, OUTPUT);
-      pinMode(motorPin2, OUTPUT);
-      pinMode(motorPin3, OUTPUT);
-      pinMode(motorPin4, OUTPUT);
-      
-      //motor2
+  //motor 2
+  pinMode(motorPin1, OUTPUT);
+  pinMode(motorPin2, OUTPUT);
+  pinMode(motorPin3, OUTPUT);
+  pinMode(motorPin4, OUTPUT);
+  //motor2
   
 }
 
@@ -84,31 +83,28 @@ void loop() {
   y = analogRead(yPin);
   buttonState = digitalRead(buttonPin);
 
-
-
-
   if((0 <= y) && (y < 50) && (450 <x) && (x <550)){
   
-     Direction2= false;
-    stepper2();
+      Direction2= false;
+      stepper2();
     
     }
 
     if((1050 > y)&&(y > 900) && (450<x)&&(x<550)){
      
-     Direction2= true;
-    stepper2();
+      Direction2= true;
+      stepper2();
      
     }
 
   if((450 < y)&&(y < 550)&& (1050 > x)&&(x > 900)){
-    Direction=false;
-           stepper() ;    // Avanza un paso
+     Direction=false;
+     stepper() ;    // Avanza un paso
     }
 
   if((0 <= x) && (x < 50) && (450 <y) && (y <550)){
-    Direction=true;
-    stepper();
+     Direction=true;
+     stepper();
     }
   
   delay(5);
@@ -145,7 +141,6 @@ void SetDirection()
     else{ 
         Steps--; 
     }
-
      
     Steps = ( Steps + 7 ) % 7 ;
 }
