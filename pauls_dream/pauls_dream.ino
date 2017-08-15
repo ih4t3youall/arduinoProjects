@@ -7,30 +7,31 @@ int pin4=4;
 int pin5=5;
 int pin6=6;
 
-boolean pieza = true;
+int pieza = 1;
 
 const int led = 13;  // the pin with a LED
 int ledState = LOW;    // El LED empieza apagado
 unsigned long T1;
 int INTERVALO =15000;
 int flag = false;
-void setup(){
-pinMode(pir, INPUT);
-pinMode(relee, OUTPUT); 
 
- for (int i = 7 ; i < 12 ; i++)
-           pinMode(i, INPUT) ;
-Serial.begin(9600);
-}
+      void setup(){
+	pinMode(pir, INPUT);
+	pinMode(relee, OUTPUT); 
+
+	for (int i = 7 ; i < 12 ; i++)
+        	 pinMode(i, INPUT) ;
+	Serial.begin(9600);
+     }
 
 
 
-void loop(void)
-   {
+    void loop(void)
+       {
 
         int pire = digitalRead(pir);
         readRemote();
-        if(pieza){
+        if(pieza == 1){
 
         if(pire == HIGH){
             digitalWrite(relee,HIGH);
@@ -42,11 +43,14 @@ void loop(void)
             digitalWrite(relee,LOW);
         }
 
-        }else{
-          
+         }
+	
+	if(pieza == 2){ 
             digitalWrite(relee,LOW);
-          
-          
+          }
+
+	if(pieza == 3){ 
+            digitalWrite(relee,HIGH);
           }
 
    }
@@ -62,7 +66,11 @@ void loop(void)
             if (digitalRead(10)) 
               { 
                    Serial.print( "Boton A, pulsado");
-                   pieza =!pieza;
+		   pieza++;
+		   if(pieza == 4){
+		      pieza =1;
+
+		   }
                    delay (500) ;
                }
             if (digitalRead(11))
