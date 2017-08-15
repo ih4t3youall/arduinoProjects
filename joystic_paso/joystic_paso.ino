@@ -25,7 +25,7 @@ int steps_left2=4095;
 boolean Direction = true;
 boolean Direction2 = true;
 int Steps = 0;
-int stops = 0;
+int steps2 = 0;
 
 int Paso [ 8 ][ 4 ] =
     {   {1, 0, 0, 0},
@@ -39,16 +39,6 @@ int Paso [ 8 ][ 4 ] =
      };
 
 
-int Paso2 [ 8 ][ 4 ] =
-    {   {1, 0, 0, 0},
-        {1, 1, 0, 0},
-        {0, 1, 0, 0},
-        {0, 1, 1, 0},
-        {0, 0, 1, 0},
-        {0, 0, 1, 1},
-        {0, 0, 0, 1},
-        {1, 0, 0, 1}
-     };
 
 
 void setup() {
@@ -124,10 +114,10 @@ void stepper()            //Avanza un paso
 
 void stepper2()            //Avanza un paso
 {
-  digitalWrite( motorPin1, Paso2[stops][ 0] );
-  digitalWrite( motorPin2, Paso2[stops][ 1] );
-  digitalWrite( motorPin3, Paso2[stops][ 2] );
-  digitalWrite( motorPin4, Paso2[stops][ 3] );
+  digitalWrite( motorPin1, Paso[steps2][ 0] );
+  digitalWrite( motorPin2, Paso[steps2][ 1] );
+  digitalWrite( motorPin3, Paso[steps2][ 2] );
+  digitalWrite( motorPin4, Paso[steps2][ 3] );
   
   SetDirection2();
 }
@@ -149,11 +139,11 @@ void SetDirection()
 void SetDirection2()
 {
     if(Direction2)
-        stops++;
+        steps2++;
     else 
-        stops--; 
+        steps2--; 
      
-    stops = ( stops + 7 ) % 7 ;
+    steps2= ( steps2+ 7 ) % 7 ;
 }
 
 
