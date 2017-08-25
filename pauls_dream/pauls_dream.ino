@@ -1,110 +1,115 @@
-int pir= 2;
+int pirPieza= 2;
 int pirLiving =3;
 
-int relee = 13;
+int releePieza = 13;
 int releeLiving =12;
-int pieza = 1;
-int living =1;
+
+int modoPieza = 1;
+int modoLiving =1;
 
 unsigned long T1;
 unsigned long T2;
-int INTERVALO =15000;
+
+int INTERVALOPIEZA =15000;
 int INTERVALOLIVING = 30000;
 int flag = false;
 
-     void setup(){
-	pinMode(pir, INPUT);
-	pinMode(pirLiving,fINPUT);
+void setup(){
+				pinMode(pirPieza, INPUT);
+				pinMode(pirLiving,INPUT);
 
-	pinMode(releeLiving,OUTPUT);
-	pinMode(relee, OUTPUT); 
-	for (int i = 7 ; i < 12 ; i++)
-        	 pinMode(i, INPUT) ;
-	Serial.begin(9600);
-     } 
+				pinMode(releeLiving,OUTPUT);
+				pinMode(releePieza, OUTPUT); 
+
+				for (int i = 7 ; i < 12 ; i++)
+								pinMode(i, INPUT) ;
+				Serial.begin(9600);
+} 
 
 
-    void loop(void) {
-        int pire= digitalRead(pir);
-        int pire = digitalRead(pireLiving);
-        readRemote();
-	checkLiving();
-        if(pieza == 1){
+void loop(void) {
+				readRemote();
+				checkLiving();
+				checkPieza();
+}
 
-          if(pire == HIGH){
-             digitalWrite(relee,HIGH);
-             T1 = millis();
-           }
+int readRemote(){
+				if (digitalRead(7) ){
+								Serial.print("Valid trans. \t");
+								if (digitalRead(8)){ 
+												modoLiving ++;
+												if(modoLiving  == 4){
+																modoLiving =1;
+												}
+												delay(500);
+								}
+								if (digitalRead(9)) 
+												Serial.print( "Boton D, pulsado");
+								if (digitalRead(10)) 
+								{ 
+												Serial.print( "Boton A, pulsado");
+												modoPieza++;
+												if(modoPieza == 4){
+																modoPieza =1;
+												}
+												delay (500) ;
+								}
+								if (digitalRead(11))
+								{ 
+												Serial.print( "Boton C, pulsado");
+												digitalWrite (13, ! digitalRead(13)) ;
+												delay (500) ;
+								}
+								Serial.println("\t");
+				} 
+}
 
-           if (millis() - T1 > INTERVALO) {
-             digitalWrite(relee,LOW);
-           }
+void checkPieza(){
+				int pire= digitalRead(pirPieza);
+				if(modoPieza == 1){
 
-        }
-	
-	if(pieza == 2){ 
-            digitalWrite(relee,LOW);
-        }
+								if(pire == HIGH){
+												digitalWrite(releePieza,HIGH);
+												T1 = millis();
+								}
 
-	if(pieza == 3){ 
-            digitalWrite(relee,HIGH);
-        }
-   }
+								if (millis() - T1 > INTERVALOPIEZA) {
+												digitalWrite(releePieza,LOW);
+								}
 
-   int readRemote(){
-     if (digitalRead(7) ){
-	    Serial.print("Valid trans. \t");
-            if (digitalRead(8)){ 
-		living++;
-			if(living == 4){
-				living =1;
-			}
-		delay(500);
-	    }
-            if (digitalRead(9)) 
-                Serial.print( "Boton D, pulsado");
-            if (digitalRead(10)) 
-              { 
-                   Serial.print( "Boton A, pulsado");
-		   pieza++;
-		   if(pieza == 4){
-		      pieza =1;
-		   }
-                   delay (500) ;
-               }
-            if (digitalRead(11))
-               { 
-                   Serial.print( "Boton C, pulsado");
-                   digitalWrite (13, ! digitalRead(13)) ;
-                   delay (500) ;
-               }
-            Serial.println("\t");
-         } 
-    }
+				}
 
+				if(modoPieza == 2){ 
+								digitalWrite(releePieza,LOW);
+				}
+
+				if(modoPieza == 3){ 
+								digitalWrite(releePieza,HIGH);
+				}
+}
 
 void checkLiving(){
+				int pire = digitalRead(pirLiving);
+				if(modoLiving == 1){
 
+								if(pire == HIGH){
+												digitalWrite(releeLiving,HIGH);
+												T1 = millis();
+								}
 
-        if(living == 1){
+								if (millis() - T2 > INTERVALOLIVING) {
+												digitalWrite(releeLiving,LOW);
+								}
 
-          if(pire == HIGH){
-             digitalWrite(releeLiving,HIGH);
-             T1 = millis();
-           }
+				}
 
-           if (millis() - T2 > INTERVALOLIVING) {
-             digitalWrite(releeLiving,LOW);
-           }
+				if(modoLiving == 2){ 
+								digitalWrite(releeLiving,LOW);
+				}
 
-        }
-	
-	if(living == 2){ 
-            digitalWrite(releeLiving,LOW);
-        }
-
-	if(living == 3){ 
-            digitalWrite(releeLiving,HIGH);
-        }
+				if(modoLiving == 3){ 
+								digitalWrite(releeLiving,HIGH);
+				}
 
 }
+
