@@ -12,71 +12,71 @@ int M2_Derecha = 11; //Direccion
 int M2 =10;
 
 void setup(){
-    Serial.begin(9600); //Open the serial port
-    pinMode(LED, OUTPUT); //Set the digital pin as output
-    pinMode(M1_Izq, OUTPUT);
-    pinMode(M1_Derecha, OUTPUT);
-    pinMode(M2_Izq, OUTPUT);
-    pinMode(M2_Derecha, OUTPUT);
+				Serial.begin(9600); //Open the serial port
+				pinMode(LED, OUTPUT); //Set the digital pin as output
+				pinMode(M1_Izq, OUTPUT);
+				pinMode(M1_Derecha, OUTPUT);
+				pinMode(M2_Izq, OUTPUT);
+				pinMode(M2_Derecha, OUTPUT);
 }
 
 void loop(){
 
-    if(Serial.available() > 0){
-	//esto lee desde la pc
-        inByte = Serial.read(); //read the incoming byte
+				if(Serial.available() > 0){
+								//esto lee desde la pc
+								inByte = Serial.read(); //read the incoming byte
 
-        if(inByte == '1'){
-            girar(1,M1);
-            delay(1000);
-            stop(M1);
+								if(inByte == '1'){
+												girar(1,M1);
+												delay(1000);
+												stop(M1);
 
-        }
-        if(inByte == '2'){
-            girar(2,M1);
-            delay(1000);
-            stop(M1);
-       }
-       if(inByte == '3'){
-            girar(2,M2);
-            delay(1000);
-            stop(M2);
-        }
-        if(inByte == '4'){
-            girar(1,M2);
-            delay(1000);
-            stop(M2);
-        }
-        if(inByte == '9'){
-          if(LEDSTATE == HIGH){
-            LEDSTATE = LOW;
-          }else {
-          LEDSTATE =HIGH;
-        }
-          
-        digitalWrite(LED,LEDSTATE);
+								}
+								if(inByte == '2'){
+												girar(2,M1);
+												delay(1000);
+												stop(M1);
+								}
+								if(inByte == '3'){
+												girar(2,M2);
+												delay(1000);
+												stop(M2);
+								}
+								if(inByte == '4'){
+												girar(1,M2);
+												delay(1000);
+												stop(M2);
+								}
+								if(inByte == '9'){
+												if(LEDSTATE == HIGH){
+																LEDSTATE = LOW;
+												}else {
+																LEDSTATE =HIGH;
+												}
 
-        }
-    }
+												digitalWrite(LED,LEDSTATE);
+
+								}
+				}
 }
 
 void girar(int direccion,int motor){
 
-  boolean inPin1 = LOW;
-  boolean inPin2 = HIGH;
+				boolean inPin1 = LOW;
+				boolean inPin2 = HIGH;
 
-  if(direccion == 1){
-    inPin1 = HIGH;
-    inPin2 = LOW;
-  }
+				if(direccion == 1){
+								inPin1 = HIGH;
+								inPin2 = LOW;
+				}
 
-  digitalWrite(motor, inPin1);
-  digitalWrite(motor+1, inPin2);
+				digitalWrite(motor, inPin1);
+				digitalWrite(motor+1, inPin2);
 }
 
 void stop(int motor){
 
-  digitalWrite(motor, LOW);
-  digitalWrite(motor+1, LOW);
+				digitalWrite(motor, LOW);
+				digitalWrite(motor+1, LOW);
 } 
 
