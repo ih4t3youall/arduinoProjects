@@ -1,53 +1,57 @@
 #include <stdio.h>
+#define FILAS 2
+#define COLS 3
+void copiarMatriz(void *dest,void*origin,int);
 
 int main (){
-				/*
-					 int a,*p;
-					 a =10;
-					 p=&a;
-					 printf("%d",*p);
-				 */
-				/*				int *p,*q;
-									int x[100];
 
-									for (int i =0 ; i<100;i++){
+				int m1[FILAS][COLS]={24,30,15,45,34,7};
+				int m2[FILAS][COLS],f,c;
+				copiarMatriz(m2,m1,sizeof(m1));
 
-									x[i]=i;
-
-									}
-
-									p=&x[3];
-									p++;
-									printf("%d",*p);
-				 */
-
-				int n = 10, *p=NULL, *q =NULL,x[100];
-
-				for (int i =0 ; i<100;i++){
-
-								x[i]=i*2;
-
+				for(f =0 ;f<FILAS;f++){
+								for(c=0;c<COLS;c++){
+												printf("%d ",m2[f][c]);
+								}
+								printf("\n");
 				}
-				p=&x[11];
-				q=&x[0];
+				printf("imprimo las posiciones de memoria de los punteros\n");
+				m2[1][1]=0;
+				for(f =0 ;f<FILAS;f++){
+								for(c=0;c<COLS;c++){
+												printf("%d ",m1[f][c]);
+								}
+								printf("\n");
+				}
 /*
-				if(q +n >  p){
-								q+=n;
-								printf("pase el primer if\n");
-								printf("el valor de q es: %d el valor de p es: %d\n",*q,*p);
-								printf("el vlaor memoria de q es : %d el valor memoria de p es: %d\n",q,p);
+				for(int i = 0 ; i < sizeof(m1);i++){
+								printf("imprimo posiciones de m1: %d \n",&m1[i]);
+				}
+				for(int i = 0 ; i < sizeof(m2);i++){
+								printf("imprimo posiciones de m2: %d \n",&m2[i]);
 				}
 */
-				q++;
-				q++;
-	
-				if(q +n >  p){
-								q+=n;
-								printf("pase el segundo  if\n");
-								printf("el valor de q es: %d el valor de p es: %d\n",*q,*p);
-								printf("el vlaor memoria de q es : %d el valor memoria de p es: %d\n",q,p);
-				}
 
 
+}
+
+void copiarMatriz(void *dest,void*origin,int n){
+
+				char * destino = dest;
+				char * origen =origin;
+				for(int i =0; i<n;i++){
+								destino[i] =origen[i];
+								printf("copiando %d a %d \n",&origen,&destino);
+
+				} 
+
+				printf("iprimo lo que tengo que imporimir\n");
+				for(int i = 0 ; i< 5 ; i++){
+				printf("%d\n",origen[i]);
+				printf("%d\n",destino[i]);
+				printf("%d\n",*(origen+i));
+				printf("%d\n",*(destino+i));
+}
+				printf("fin iprimo lo que tengo que imporimir\n");
 
 }
