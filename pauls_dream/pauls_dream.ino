@@ -1,24 +1,27 @@
-int pirPieza= 2;
-int pirLiving =3;
+struct pieza{
+				int pirPieza=2;
+				int releePieza=13;
+				int modoPieza=1;
+				unsigned long T1=0;
+				int INTERVALOPIEZA =15000;
 
-int releePieza = 13;
-int releeLiving =12;
+}pieza,*pPieza=&pieza;
 
-int modoPieza = 1;
-int modoLiving =1;
+struct living{
+				int pirLiving=3;
+				int releeLiving=12;
+				int modoLiving=1;
+				unsigned long T1=0;
+				int INTERVALOLIVING = 30000;
 
-unsigned long T1;
-unsigned long T2;
+}living,*pLiving=&living;
 
-int INTERVALOPIEZA =15000;
-int INTERVALOLIVING = 30000;
 int flag = false;
 
 void setup(){
 
-				pinMode(releeLiving,OUTPUT);
-				pinMode(releePieza, OUTPUT); 
-
+				pinMode(pLiving->releeLiving,OUTPUT);
+				pinMode(pPieza->releePieza, OUTPUT); 
 				for (int i = 7 ; i < 12 ; i++)
 								pinMode(i, INPUT) ;
 				Serial.begin(9600);
@@ -30,14 +33,13 @@ void loop(void) {
 				checkPieza();
 }
 
-
 int readRemote(){
 				if (digitalRead(7) ){
 								Serial.print("Valid trans. \t");
 								if (digitalRead(8)){ 
-												modoLiving ++;
-												if(modoLiving  == 4){
-																modoLiving =1;
+												pLiving->modoLiving ++;
+												if(pLiving->modoLiving == 4){
+																pLiving->modoLiving =1;
 												}
 												delay(500);
 								}
@@ -46,9 +48,9 @@ int readRemote(){
 								if (digitalRead(10)) 
 								{ 
 												Serial.print( "Boton A, pulsado");
-												modoPieza++;
-												if(modoPieza == 4){
-																modoPieza =1;
+												pPieza->modoPieza++;
+												if(pPieza->modoPieza== 4){
+															pPieza->modoPieza=1;
 												}
 												delay (500) ;
 								}
@@ -63,51 +65,50 @@ int readRemote(){
 }
 
 void checkPieza(){
-				int pire= digitalRead(pirPieza);
-				if(modoPieza == 1){
+				int pire= digitalRead(pPieza->pirPieza);
+				if(pPieza->modoPieza == 1){
 
 								if(pire == HIGH){
-												digitalWrite(releePieza,HIGH);
-												T1 = millis();
+												digitalWrite(pPieza->releePieza,HIGH);
+												pPieza->T1 = millis();
 								}
 
-								if (millis() - T1 > INTERVALOPIEZA) {
-												digitalWrite(releePieza,LOW);
+								if (millis() - pPieza->T1 > pPieza->INTERVALOPIEZA) {
+												digitalWrite(pPieza->releePieza,LOW);
 								}
 
 				}
 
-				if(modoPieza == 2){ 
-								digitalWrite(releePieza,LOW);
+				if(pPieza->modoPieza == 2){ 
+								digitalWrite(pPieza->releePieza,LOW);
 				}
 
-				if(modoPieza == 3){ 
-								digitalWrite(releePieza,HIGH);
+				if(pPieza->modoPieza == 3){ 
+								digitalWrite(pPieza->releePieza,HIGH);
 				}
 }
 
 void checkLiving(){
-				int pire = digitalRead(pirLiving);
-				if(modoLiving == 1){
+				int pire = digitalRead(pLiving->pirLiving);
+				if(pLiving->modoLiving== 1){
 
 								if(pire == HIGH){
-												digitalWrite(releeLiving,HIGH);
-												T1 = millis();
+												digitalWrite(pLiving->releeLiving,HIGH);
+												pLiving->T1 = millis();
 								}
 
-								if (millis() - T2 > INTERVALOLIVING) {
-												digitalWrite(releeLiving,LOW);
+								if (millis() - pLiving->T1  > pLiving->INTERVALOLIVING) {
+												digitalWrite(pLiving->releeLiving,LOW);
 								}
 
 				}
 
-				if(modoLiving == 2){ 
-								digitalWrite(releeLiving,LOW);
+				if(pLiving->modoLiving== 2){ 
+								digitalWrite(pLiving->releeLiving,LOW);
 				}
 
-				if(modoLiving == 3){ 
-								digitalWrite(releeLiving,HIGH);
+				if(pLiving->modoLiving== 3){ 
+								digitalWrite(pLiving->releeLiving,HIGH);
 				}
 
 }
-
