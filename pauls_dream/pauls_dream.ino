@@ -15,8 +15,6 @@ int INTERVALOLIVING = 30000;
 int flag = false;
 
 void setup(){
-				pinMode(pirPieza, INPUT);
-				pinMode(pirLiving,INPUT);
 
 				pinMode(releeLiving,OUTPUT);
 				pinMode(releePieza, OUTPUT); 
@@ -26,12 +24,12 @@ void setup(){
 				Serial.begin(9600);
 } 
 
-
 void loop(void) {
 				readRemote();
 				checkLiving();
 				checkPieza();
 }
+
 
 int readRemote(){
 				if (digitalRead(7) ){
