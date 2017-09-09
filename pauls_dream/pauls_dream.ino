@@ -16,12 +16,16 @@ struct living{
 
 }living,*pLiving=&living;
 
+int led = 12;
 int flag = false;
+int buttonPieza = 6;
 
 void setup(){
 
 				pinMode(pLiving->releeLiving,OUTPUT);
 				pinMode(pPieza->releePieza, OUTPUT); 
+				pinMode(led,OUTPUT);
+				pinMode(buttonPieza,INPUT);
 				for (int i = 7 ; i < 12 ; i++)
 								pinMode(i, INPUT) ;
 				Serial.begin(9600);
@@ -31,8 +35,21 @@ void loop(void) {
 				readRemote();
 				checkLiving();
 				checkPieza();
+				btnPieza();
 }
+int btnPieza(){
 
+				if(digitalRead(buttonPieza)){
+								pPieza->modoPieza++;
+				}	
+				if(pPieza->modoPieza == 4){
+
+								pPieza->modoPieza=1;
+				}
+				delay(500);
+
+
+}
 int readRemote(){
 				if (digitalRead(7) ){
 								Serial.print("Valid trans. \t");
@@ -50,7 +67,7 @@ int readRemote(){
 												Serial.print( "Boton A, pulsado");
 												pPieza->modoPieza++;
 												if(pPieza->modoPieza== 4){
-															pPieza->modoPieza=1;
+																pPieza->modoPieza=1;
 												}
 												delay (500) ;
 								}
@@ -68,6 +85,7 @@ void checkPieza(){
 				int pire= digitalRead(pPieza->pirPieza);
 				if(pPieza->modoPieza == 1){
 
+								digitalWrite(led,LOW);
 								if(pire == HIGH){
 												digitalWrite(pPieza->releePieza,HIGH);
 												pPieza->T1 = millis();
@@ -85,6 +103,7 @@ void checkPieza(){
 
 				if(pPieza->modoPieza == 3){ 
 								digitalWrite(pPieza->releePieza,HIGH);
+								digitalWrite(led,HIGH);
 				}
 }
 
