@@ -9,9 +9,6 @@
 #define ANCHO_PANTALLA 128 // ancho pantalla OLED
 #define ALTO_PANTALLA 64 // alto pantalla OLED
  
-// Objeto de la clase Adafruit_SSD1306
-Adafruit_SSD1306 display(ANCHO_PANTALLA, ALTO_PANTALLA, &Wire, -1);
-
 int tres = 4;
 int dos = 6;
 int cuatro = 7;
@@ -31,7 +28,7 @@ void setup() {
 
   Serial.begin(9600);
   delay(100);
-  Serial.println("Iniciando pantalla OLED");
+  //Serial.println("Iniciando pantalla OLED");
 
   pinMode(uno,INPUT);
   pinMode(dos,INPUT);
@@ -43,44 +40,75 @@ void setup() {
   pinMode(relee3,OUTPUT);
   pinMode(relee4,OUTPUT);
  
-  // Iniciar pantalla OLED en la dirección 0x3C
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-#ifdef __DEBUG__
-    Serial.println("No se encuentra la pantalla OLED");
-#endif
-    while (true);
-  }
- 
-  // Limpiar buffer
-  display.clearDisplay();
- 
-  // Tamaño del texto
-  display.setTextSize(1);
-  // Color del texto
-  display.setTextColor(SSD1306_WHITE);
-  // Posición del texto
-  display.setCursor(10, 32);
-  // Escribir texto
-  display.println("Barber sos\n un pelotudo");
- 
-  // Enviar a pantalla
-  display.display();
  
 }
 
- void draw(String palabra){
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(10, 32);
-  display.println(palabra);
-  display.display();
-   }
  
 void loop() {
 
+
+  if (Serial.available()){
+    char recibido = Serial.read();
+    if (recibido == 'a'){
+      relee1status = 1;
+    }
+    if (recibido == 'b'){
+      relee1status = 0;
+    }
+
+    if (recibido == 'c'){
+      relee2status = 1;
+    }
+    if (recibido == 'd'){
+      relee2status = 0;
+    }
+
+    if (recibido == 'e'){
+      relee3status = 1;
+    }
+    if (recibido == 'f'){
+      relee3status = 0;
+    }
+
+    if (recibido == 'g'){
+      relee4status = 1;
+    }
+    if (recibido == 'h'){
+      relee4status = 0;
+    }
+
+
+  }
+
+  if (relee1status == 1){
+    digitalWrite(relee1,HIGH);
+    }
+  if (relee1status == 0 ){
+    digitalWrite(relee1,LOW);
+    }
+
+  if (relee2status == 1){
+    digitalWrite(relee2,HIGH);
+    }
+  if (relee2status == 0 ){
+    digitalWrite(relee2,LOW);
+    }
+
+  if (relee3status == 1){
+    digitalWrite(relee3,HIGH);
+    }
+  if (relee3status == 0 ){
+    digitalWrite(relee3,LOW);
+    }
+
+  if (relee4status == 1){
+    digitalWrite(relee4,HIGH);
+    }
+  if (relee4status == 0 ){
+    digitalWrite(relee4,LOW);
+    }
+
   if (digitalRead(uno)){
-    draw("uno");
     if (relee1status == 0){
       digitalWrite(relee1,HIGH);
       relee1status = 1;
@@ -92,7 +120,6 @@ void loop() {
   }
 
   if (digitalRead(dos)){
-    draw("dos");
     if (relee2status == 0 ){
       digitalWrite(relee2,HIGH);
       relee2status  =1;
@@ -104,7 +131,6 @@ void loop() {
   }
 
   if (digitalRead(tres)){
-    draw("tres");
     if (relee3status == 0){
       digitalWrite(relee3,HIGH);
       relee3status  = 1;
@@ -116,7 +142,6 @@ void loop() {
   }
 
   if (digitalRead(cuatro)){
-    draw("cuatro");
     if (relee4status == 0){
       digitalWrite(relee4,HIGH);
       relee4status  = 1;
