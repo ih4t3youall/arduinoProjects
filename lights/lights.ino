@@ -5,10 +5,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
  
-// Definir constantes
-#define ANCHO_PANTALLA 128 // ancho pantalla OLED
-#define ALTO_PANTALLA 64 // alto pantalla OLED
- 
 int tres = 4;
 int dos = 6;
 int cuatro = 7;
