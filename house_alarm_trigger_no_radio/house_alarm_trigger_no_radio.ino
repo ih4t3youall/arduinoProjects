@@ -7,10 +7,10 @@
 RH_ASK rf_driver;
 
 int txPin = 12; 
-int LED = 11;
+int RELEE = 8;
 
 void setup() {
-  pinMode(LED, OUTPUT);
+  pinMode(RELEE, OUTPUT);
   Serial.begin(115200);
   rf_driver.init();
 }
@@ -29,30 +29,14 @@ void handleSerialCommunication() {
     Serial.println(data);
 
     if (data == "trig") {  // Comprueba si los datos recibidos son "trigger"
-      toggleLED();  // Llama a la función que cambia el estado del LED
       send_radio_command();
     }
   }
 }
 
-void toggleLED() {
-  int state = digitalRead(LED);  // Lee el estado actual del LED
-  if (state == HIGH) {
-    digitalWrite(LED, LOW);  // Cambia el estado del LED a bajo
-    Serial.println("LED turned LOW");  // Envía un mensaje a la consola serial
-  } else {
-    digitalWrite(LED, HIGH);  // Cambia el estado del LED a alto
-    Serial.println("LED turned HIGH");  // Envía un mensaje a la consola serial
-  }
-}
-
 void send_radio_command() 
 {
-  const char *msg = "Hello World";
-  Serial.println("llegue hasta aca 1");
-  rf_driver.send((uint8_t *)msg, strlen(msg));
-  Serial.println("llegue hasta aca 2");
-  rf_driver.waitPacketSent();
-  Serial.println("llegue hasta aca 3");
+  digitalWrite(RELEE, HIGH);
   delay(1000);
+  digitalWrite(RELEE, LOW);
 }

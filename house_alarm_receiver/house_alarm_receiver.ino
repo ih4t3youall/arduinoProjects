@@ -2,7 +2,7 @@
 #include <RH_ASK.h>
 // Include dependant SPI Library 
 #include <SPI.h> 
-const int buzzer = 8;
+const int relee = 8;
 // Create Amplitude Shift Keying Object
 RH_ASK rf_driver;
  
@@ -12,7 +12,8 @@ void setup()
   rf_driver.init();
   // Setup Serial Monitor
   Serial.begin(115200);
-  pinMode(buzzer,OUTPUT);
+  pinMode(relee,OUTPUT);
+  digitalWrite(relee, HIGH);
 }
  
 void loop()
@@ -26,6 +27,6 @@ void loop()
       // Message received with valid checksum
       Serial.print("Message Received: ");
       Serial.println((char*)buf);         
-      digitalWrite(buzzer, HIGH);
+      digitalWrite(relee, LOW);
     }
 }
