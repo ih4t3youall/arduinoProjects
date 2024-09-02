@@ -37,6 +37,6 @@ void handleSerialCommunication() {
 void send_radio_command() 
 {
   digitalWrite(RELEE, HIGH);
-  delay(1000);
+  delay(25000);
   digitalWrite(RELEE, LOW);
 }
